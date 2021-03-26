@@ -85,24 +85,36 @@ class Car{
     this.tank = 0;
     this.odometer = 0;
     }
+    fill(gallons){
+      return this.tank+= gallons;
+    }
+    // console.log(fill(10));
+    drive(distance){
+      let trip = (distance/this.milesPerGallon);
+      if(trip > this.tank){
+        this.odometer = this.odometer + (this.milesPerGallon*this.tank)
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles!`
+      }else {
+        this.tank = this.tank - trip;
+        this.odometer += distance
+      }
+    }
   }
+
+  
+
 
 class newCar extends Car {
   constructor(model,milesPerGallon){ 
     super(model, milesPerGallon)
   }
-  fill (gallons){
-    return this.tank+= gallons
-  }
-  drive(distance){
-    this.odometer += distance
-  }
-}
-  let NewCar = new Car({
-    model:"Honda",
-    milesPerGallon: 30,
-  }) 
 
+}
+  let NewCar = new Car("aCar", 30)
+
+  console.log(NewCar.drive(200));
+  console.log(NewCar.fill(10));
   
   /*
     TASK 3
@@ -239,11 +251,20 @@ class newCar extends Car {
      return `${this.name} announces to ${slackChanel}, @channel standy times!`
    }
    debugsCode(student,subject){
-     return`${student.name}'s code on ${subject}`
+     return`${this.name} debugs ${student.name}'s code on ${subject}`
    }
  }
+ let newProjectManager = new ProjectManager({
+    name: 'SomePM',
+    age: 30,
+    location: 'LA',
+    gradClassName: 'Web20',
+    favInstructor: 'Gabby'
+ })
+
+console.log(newProjectManager.debugsCode(imaStudent.name,'JS'))
   /*
-    STRETCH PROBLEM (no tests!)
+    STRETCH PROBLEM (no tests!) 
       - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
       - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
       - Add a graduate method to a student.
